@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public float mouseSensitivity = 2f;
     private const float MouseScale = 0.1f; // Converts raw mouse pixels to roughly the old GetAxis feel
     private float verticalRotation = 0f;
+    private float yaw;
     private Transform cameraTransform;
 
     // Ground Movement
@@ -25,7 +26,7 @@ public class Player : MonoBehaviour
     // Ball spawning
     public GameObject ball;
     public float ballSpawnDistance = 2f;
-    private InputAction spawnBallAction;
+    private List<GameObject> spawnedBalls = new List<GameObject>();
 
     // Jumping
     public float jumpForce = 10f;
@@ -46,27 +47,12 @@ public class Player : MonoBehaviour
     private InputAction lookAction;
     private InputAction jumpAction;
     private InputAction sprintAction;
-    private List<GameObject> spawnedBalls = new List<GameObject>();
+    private InputAction spawnBallAction;
     private InputAction clearBallsAction;
 
     void Awake()
     {
         // Move: WASD + arrow keys + gamepad left stick
-
-        sprintAction = new InputAction("Sprint", InputActionType.Button);
-        sprintAction.AddBinding("<Keyboard>/leftShift");
-        sprintAction.AddBinding("<Gamepad>/leftStickPress");
-
-        // Spawn ball: B key + gamepad west button
-        spawnBallAction = new InputAction("SpawnBall", InputActionType.Button);
-        spawnBallAction.AddBinding("<Mouse>/leftButton");
-        spawnBallAction.AddBinding("<Gamepad>/buttonWest");
-
-        // Clear balls: X key + gamepad east button
-        clearBallsAction = new InputAction("ClearBalls", InputActionType.Button);
-        clearBallsAction.AddBinding("<Mouse>/rightButton");
-        clearBallsAction.AddBinding("<Gamepad>/buttonEast");
-
         moveAction = new InputAction("Move", InputActionType.Value);
         moveAction.AddCompositeBinding("2DVector")
             .With("Up", "<Keyboard>/w")
@@ -87,6 +73,21 @@ public class Player : MonoBehaviour
         jumpAction = new InputAction("Jump", InputActionType.Button);
         jumpAction.AddBinding("<Keyboard>/space");
         jumpAction.AddBinding("<Gamepad>/buttonSouth");
+
+        // Sprint: left shift + gamepad left stick click
+        sprintAction = new InputAction("Sprint", InputActionType.Button);
+        sprintAction.AddBinding("<Keyboard>/leftShift");
+        sprintAction.AddBinding("<Gamepad>/leftStickPress");
+
+        // Spawn ball: left click + gamepad west button
+        spawnBallAction = new InputAction("SpawnBall", InputActionType.Button);
+        spawnBallAction.AddBinding("<Mouse>/leftButton");
+        spawnBallAction.AddBinding("<Gamepad>/buttonWest");
+
+        // Clear balls: right click + gamepad east button
+        clearBallsAction = new InputAction("ClearBalls", InputActionType.Button);
+        clearBallsAction.AddBinding("<Mouse>/rightButton");
+        clearBallsAction.AddBinding("<Gamepad>/buttonEast");
     }
 
     void OnEnable()
@@ -123,6 +124,8 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        yaw = transform.eulerAngles.y; // Start from the current facing so the player doesn't snap to 0
         cameraTransform = Camera.main.transform;
 
         // Set the raycast to be slightly beneath the player's feet
@@ -158,6 +161,9 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Body rotation is applied in the physics step (smoothed by interpolation)
+        rb.MoveRotation(Quaternion.Euler(0f, yaw, 0f));
+
         CheckGround();
 
         if (jumpRequested && isGrounded)
@@ -174,7 +180,7 @@ public class Player : MonoBehaviour
     {
         if (ball == null) return;
 
-        // 2 units in front of the camera, in the exact direction the player is looking
+        // In front of the camera, in the exact direction the player is looking
         Vector3 spawnPosition = cameraTransform.position + cameraTransform.forward * ballSpawnDistance;
 
         GameObject newBall = Instantiate(ball, spawnPosition, Quaternion.identity);
@@ -191,6 +197,15 @@ public class Player : MonoBehaviour
         spawnedBalls.Add(newBall);
     }
 
+    void DeleteAllBalls()
+    {
+        foreach (GameObject b in spawnedBalls)
+        {
+            if (b != null) Destroy(b); // null check in case a ball was already destroyed elsewhere
+        }
+        spawnedBalls.Clear();
+    }
+
     void CheckGround()
     {
         // Skip the check briefly after jumping so we don't re-detect the ground we just left
@@ -202,15 +217,6 @@ public class Player : MonoBehaviour
 
         Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
         isGrounded = Physics.Raycast(rayOrigin, Vector3.down, raycastDistance, groundLayer);
-    }
-
-    void DeleteAllBalls()
-    {
-        foreach (GameObject b in spawnedBalls)
-        {
-            if (b != null) Destroy(b); // null check in case a ball was already destroyed elsewhere
-        }
-        spawnedBalls.Clear();
     }
 
     void MovePlayer()
@@ -238,7 +244,7 @@ public class Player : MonoBehaviour
     {
         Vector2 look = lookAction.ReadValue<Vector2>() * mouseSensitivity * MouseScale;
 
-        transform.Rotate(0f, look.x, 0f);
+        yaw += look.x; // Applied to the body in FixedUpdate
 
         verticalRotation -= look.y;
         verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);

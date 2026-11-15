@@ -119,6 +119,135 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &18337010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 18337012}
+  - component: {fileID: 18337011}
+  m_Layer: 0
+  m_Name: BckgrndMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &18337011
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18337010}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 370bb5bc71e97fd498a5cbd73e40f2e4, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &18337012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18337010}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &30247274
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +258,6 @@ GameObject:
   m_Component:
   - component: {fileID: 30247275}
   - component: {fileID: 30247278}
-  - component: {fileID: 30247277}
   - component: {fileID: 30247276}
   m_Layer: 0
   m_Name: Camera1
@@ -197,14 +325,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &30247277
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 30247274}
-  m_Enabled: 1
 --- !u!20 &30247278
 Camera:
   m_ObjectHideFlags: 0
@@ -266,7 +386,6 @@ GameObject:
   m_Component:
   - component: {fileID: 112069535}
   - component: {fileID: 112069538}
-  - component: {fileID: 112069537}
   - component: {fileID: 112069536}
   m_Layer: 0
   m_Name: Camera1
@@ -334,14 +453,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &112069537
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 112069534}
-  m_Enabled: 1
 --- !u!20 &112069538
 Camera:
   m_ObjectHideFlags: 0
@@ -586,7 +697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7682171682574694321, guid: 067d767a8958b8246850a5fcf457e88a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.09307567
+      value: -0.03
       objectReference: {fileID: 0}
     - target: {fileID: 7682171682574694321, guid: 067d767a8958b8246850a5fcf457e88a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -594,7 +705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7682171682574694321, guid: 067d767a8958b8246850a5fcf457e88a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.770708
+      value: 6.09
       objectReference: {fileID: 0}
     - target: {fileID: 7682171682574694321, guid: 067d767a8958b8246850a5fcf457e88a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -677,7 +788,7 @@ MonoBehaviour:
   MoveSpeed: 5
   SprintSpeed: 7
   ball: {fileID: 1747998528}
-  ballSpawnDistance: 1
+  ballSpawnDistance: 2
   jumpForce: 8
   fallMultiplier: 2
   ascendMultiplier: 2
@@ -965,7 +1076,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1073,7 +1184,6 @@ GameObject:
   m_Component:
   - component: {fileID: 437772699}
   - component: {fileID: 437772702}
-  - component: {fileID: 437772701}
   - component: {fileID: 437772700}
   m_Layer: 0
   m_Name: Camera1
@@ -1141,14 +1251,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &437772701
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 437772698}
-  m_Enabled: 1
 --- !u!20 &437772702
 Camera:
   m_ObjectHideFlags: 0
@@ -1404,7 +1506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5682633802629659838, guid: cca7ca7fef4016648a7396ddd83e4967, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.2
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: 5682633802629659838, guid: cca7ca7fef4016648a7396ddd83e4967, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1412,7 +1514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5682633802629659838, guid: cca7ca7fef4016648a7396ddd83e4967, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.28
+      value: 10.26
       objectReference: {fileID: 0}
     - target: {fileID: 5682633802629659838, guid: cca7ca7fef4016648a7396ddd83e4967, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1579,7 +1681,6 @@ GameObject:
   m_Component:
   - component: {fileID: 796563686}
   - component: {fileID: 796563689}
-  - component: {fileID: 796563688}
   - component: {fileID: 796563687}
   m_Layer: 0
   m_Name: Camera1
@@ -1647,14 +1748,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &796563688
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796563685}
-  m_Enabled: 1
 --- !u!20 &796563689
 Camera:
   m_ObjectHideFlags: 0
@@ -2285,7 +2378,7 @@ Transform:
   m_GameObject: {fileID: 1686604591}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.52, y: 2.4699862, z: -11.66}
+  m_LocalPosition: {x: 2.5, y: 2.4699862, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2426,3 +2519,4 @@ SceneRoots:
   - {fileID: 1686604592}
   - {fileID: 930253700}
   - {fileID: 756177554}
+  - {fileID: 18337012}
