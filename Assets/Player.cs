@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public GameObject ball;
     public float ballSpawnDistance = 2f;
     private List<GameObject> spawnedBalls = new List<GameObject>();
+    public GameObject pauseContainer;
 
     // Jumping
     public float jumpForce = 10f;
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
     public bool IsGrounded => isGrounded;
     private bool isSprinting = false;
     public bool IsSprinting => isSprinting;
+    private bool isPaused = false;
     private bool jumpRequested;
     private float groundCheckTimer = 0f;
     private float groundCheckDelay = 0.3f;
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour
     private InputAction sprintAction;
     private InputAction spawnBallAction;
     private InputAction clearBallsAction;
+    private InputAction escapeAction;
 
     void Awake()
     {
@@ -74,6 +77,10 @@ public class Player : MonoBehaviour
         jumpAction.AddBinding("<Keyboard>/space");
         jumpAction.AddBinding("<Gamepad>/buttonSouth");
 
+        escapeAction = new InputAction("Escape", InputActionType.Button);
+        escapeAction.AddBinding("<Keyboard>/escape");
+        escapeAction.AddBinding("<Gamepad>/start");
+
         // Sprint: left shift + gamepad left stick click
         sprintAction = new InputAction("Sprint", InputActionType.Button);
         sprintAction.AddBinding("<Keyboard>/leftShift");
@@ -98,6 +105,7 @@ public class Player : MonoBehaviour
         sprintAction.Enable();
         spawnBallAction.Enable();
         clearBallsAction.Enable();
+        escapeAction.Enable();
     }
 
     void OnDisable()
@@ -108,6 +116,7 @@ public class Player : MonoBehaviour
         sprintAction.Disable();
         spawnBallAction.Disable();
         clearBallsAction.Disable();
+        escapeAction.Disable();
     }
 
     void OnDestroy()
@@ -118,6 +127,7 @@ public class Player : MonoBehaviour
         sprintAction.Dispose();
         spawnBallAction.Dispose();
         clearBallsAction.Dispose();
+        escapeAction.Dispose();
     }
 
     void Start()
@@ -139,6 +149,17 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (escapeAction.WasPressedThisFrame())
+        {
+            isPaused = true;
+            pauseContainer.SetActive(true);
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
+        if(isPaused) return;
+
         moveInput = moveAction.ReadValue<Vector2>();
 
         RotateCamera();
@@ -157,6 +178,26 @@ public class Player : MonoBehaviour
         {
             DeleteAllBalls();
         }
+
+        if (escapeAction.WasPressedThisFrame())
+        {
+            pauseContainer.SetActive(true);
+            Time.timeScale = 0;
+        }
+    }
+
+    public void ContinueButton()
+    {
+        pauseContainer.SetActive(false);
+        Time.timeScale = 1;
+        isPaused = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void ExitButton()
+    {
+        Application.Quit();
     }
 
     void FixedUpdate()
